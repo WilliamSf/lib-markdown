@@ -9,7 +9,6 @@ async function checaStatus(arrayURLs) {
         return await Promise
             .all(arrayURLs
                 .map(async url => {
-                    console.log(url)
                     const res = await fetch(url)
                     return `${res.status} - ${res.statusText}`;
                 }))
