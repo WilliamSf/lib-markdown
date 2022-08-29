@@ -2,12 +2,17 @@ const chalk = require('chalk');
 const fs = require('fs');
 const path = require('path');
 
-function extraiLinks(texto) {
+function extraiLinks(texto, nomeArquivo) {
     const regex = /\[([^\]]*)]\((https?:\/\/[^$#\s].[^\s]*)\)/gm;
     const arrayResultados = [];
     let temp;
     while((temp = regex.exec(texto)) !== null) {
-        arrayResultados.push({ [temp[1]]: temp[2] })
+        arrayResultados.push(
+            {
+                [temp[1]]: temp[2],
+                arquivo: nomeArquivo
+            }
+        )
     }
     return arrayResultados.length === 0 ? 'não há links' : arrayResultados;
 }
@@ -24,7 +29,7 @@ async function pegarArquivo(caminho) {
         return await Promise.all(arquivos.map(async (arquivo) => {
             const localArquivo = `${caminhoAbsoluto}/${arquivo}`;
             const texto = await fs.promises.readFile(localArquivo, encoding);
-            return extraiLinks(texto);
+            return extraiLinks(texto, arquivo);
         }));
     } catch (erro) {
         return trataErro(erro);

@@ -9,7 +9,7 @@ async function checaStatus(arrayURLs) {
         return await Promise
             .all(arrayURLs
                 .map(async url => {
-                    console.log(url);
+                    console.log(url)
                     const res = await fetch(url)
                     return `${res.status} - ${res.statusText}`;
                 }))
@@ -21,7 +21,7 @@ async function checaStatus(arrayURLs) {
 function geraArrayDeURLs(arrayLinks) {
     return arrayLinks
         .map(objetoLink => Object
-            .values(objetoLink).join());
+            .values(objetoLink)[0]);
 }
 
 async function validaURLs(arrayLinks) {
