@@ -14,7 +14,19 @@ function extraiLinks(texto, nomeArquivo) {
             }
         )
     }
-    return arrayResultados.length === 0 ? 'não há links' : arrayResultados;
+
+    if (arrayResultados.length === 0) {
+        arrayResultados.push(arquivoSemLink(nomeArquivo));
+    }
+
+    return arrayResultados;
+}
+
+function arquivoSemLink(nomeArquivo) {
+    return {
+        label: 'não há links',
+        arquivo: nomeArquivo
+    };
 }
 
 function trataErro(erro) {
